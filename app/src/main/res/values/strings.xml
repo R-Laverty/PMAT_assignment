@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Dating_app</string>
+    <string name="prompt_email">Email:</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="prompt_username">Username</string>
+    <string name="btn_text_facebook">Sign in with Facebook</string>
+    <string name="btn_text_google">Sign in with Google</string>
+    <string name="btn_text_login">Login</string>
+    <string name="btn_text_register">Register</string>
+    <string name="prompt_firstname">Firstname:</string>
+    <string name="prompt_surname">Surname:</string>
+    <string name="title_aboutyou">About You</string>
+    <string name="btn_text_return">Return</string>
+    <string name="btn_text_next">Next</string>
+    <string name="prompt_age">Age:</string>
+    <string name="prompt_dob">Date of birth:</string>
+    <string name="prompt_day">DD</string>
+    <string name="prompt_month">MM</string>
+    <string name="prompt_year">YYYY</string>
+</resources>
