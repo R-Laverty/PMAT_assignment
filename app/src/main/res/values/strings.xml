@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Dating_app</string>
     <string name="prompt_email">Email:</string>
-    <string name="prompt_password">Password</string>
+    <string name="prompt_password">Password:</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome !"</string>
@@ -23,4 +23,7 @@
     <string name="prompt_day">DD</string>
     <string name="prompt_month">MM</string>
     <string name="prompt_year">YYYY</string>
+    <string name="prompt_sexuality">Sexuality:</string>
+    <string name="prompt_gender">Gender:</string>
+    <string name="prompt_profilePicture">Upload profile picture:</string>
 </resources>

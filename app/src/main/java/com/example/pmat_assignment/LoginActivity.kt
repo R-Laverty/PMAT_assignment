@@ -8,6 +8,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_login) TODO reset this to login view
-        setContentView(R.layout.activity_user_details_p1)
+        //setContentView(R.layout.activity_user_details_p1)
+        setContentView(R.layout.activity_user_details_p2)
     }
 }
