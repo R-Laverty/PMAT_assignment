@@ -1,9 +1,13 @@
 package com.example.logic
 
-class User(firstName:String?, surname:String?, email:String?, dobDay:Int?, dobMonth:Int?, dobYear:Int?, age:Int?) {
-        val mfirstName = firstName
-        val msurname = surname
-        val memail = email
-        val dateOfBirth = "$dobDay/$dobMonth/$dobYear"
-        val mage = age
+import java.io.Serializable
+
+class User (firstName:String?, surname:String?, email:String?, dobDay:Int?, dobMonth:Int?, dobYear:Int?, age:Int?): Serializable {
+    var mfirstName = firstName
+    var msurname = surname
+    var memail = email
+    var mdobDay = dobDay
+    var mdobMonth = dobMonth
+    var mdobYear = dobYear
+    var mage = age
 }

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import com.example.logic.validateSignIn
 
 class LoginActivity : AppCompatActivity() {
@@ -27,10 +28,11 @@ class LoginActivity : AppCompatActivity() {
             val username: String = findViewById<EditText>(R.id.txt_username).text.toString()
             val password: String = findViewById<EditText>(R.id.password).text.toString()
             if (validateSignIn(username, password)) {
-                //TODO display main view
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
             }
             else {
-                //TODO display user/password not recognised text
+                findViewById<TextView>(R.id.txt_error).text = getString(R.string.invalid_login)
             }
         }
     }

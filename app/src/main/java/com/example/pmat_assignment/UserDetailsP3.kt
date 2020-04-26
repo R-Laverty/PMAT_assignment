@@ -6,27 +6,26 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import com.example.logic.User
+import kotlinx.android.synthetic.main.activity_user_details_p3.*
 
-class UserDetailsP2 : AppCompatActivity() {
+class UserDetailsP3 : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_details_p2)
+        setContentView(R.layout.activity_user_details_p3)
 
         val btnReturn = findViewById<Button>(R.id.btn_return)
-        val btnNext = findViewById<Button>(R.id.btn_nextp2)
-        var userDetails = intent.getSerializableExtra("User") as? User
+        val btnNext = findViewById<Button>(R.id.btn_nextP3)
+        var userDetails:User
 
         btnReturn.setOnClickListener{
-            val intent = Intent(this, UserDetailsP1::class.java)
+            val intent = Intent(this, UserDetailsP2::class.java)
             startActivity(intent)
         }
 
         btnNext.setOnClickListener{
-            val intent = Intent(this, UserDetailsP3::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-            //TODO direct to the next registration page also use a try catch to detect if all fields
-            // are filled in prompt user if some are empty
         }
     }
 }

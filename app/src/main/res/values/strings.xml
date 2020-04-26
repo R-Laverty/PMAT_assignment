@@ -26,4 +26,5 @@
     <string name="prompt_sexuality">Sexuality:</string>
     <string name="prompt_gender">Gender:</string>
     <string name="prompt_profilePicture">Upload profile picture:</string>
+    <string name="invalid_login">Username/password incorrect</string>
 </resources>
