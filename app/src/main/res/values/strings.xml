@@ -27,4 +27,7 @@
     <string name="prompt_gender">Gender:</string>
     <string name="prompt_profilePicture">Upload profile picture:</string>
     <string name="invalid_login">Username/password incorrect</string>
+    <string name="prompt_fill_all_fields">Please ensure all fields are filled in</string>
+    <string name="invalid_email">Your email is invalid</string>
+    <string name="invalid_DOB_Age">Your DOB or age are invalid</string>
 </resources>

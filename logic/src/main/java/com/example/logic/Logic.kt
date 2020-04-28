@@ -6,11 +6,18 @@ fun validateSignIn(username: String, password: String): Boolean {
 }
 
 fun validateEmail(email: String):Boolean{
-    //TODO validate email is valid return true if it is
+    if (email.contains('@') && email.contains('.')) {
+        return true
+    }
     return false
 }
 
-fun validateAgeAndDOB(dayOfBirth: Int, monthOfBirth: Int, yearOfBirh: Int, age: Int): Boolean{
-    //TODO validate age is over 18 and D.O.B is valid and matches age return true if it is
+fun validateAgeAndDOB(dayOfBirth: Int, monthOfBirth: Int, yearOfBirh: Int, age: Int, currentYear: Int): Boolean{
+    val calcAge = currentYear-yearOfBirh
+    if (age > 17){
+        if (calcAge-1 == age || calcAge+1 == age){
+            return true
+        }
+    }
     return false
 }

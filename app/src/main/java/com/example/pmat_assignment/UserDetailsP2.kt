@@ -15,7 +15,7 @@ class UserDetailsP2 : AppCompatActivity() {
 
         val btnReturn = findViewById<Button>(R.id.btn_return)
         val btnNext = findViewById<Button>(R.id.btn_nextp2)
-        var userDetails = intent.getSerializableExtra("User") as? User
+        var userDetails = intent.getSerializableExtra("User") as User
 
         btnReturn.setOnClickListener{
             val intent = Intent(this, UserDetailsP1::class.java)
@@ -23,10 +23,16 @@ class UserDetailsP2 : AppCompatActivity() {
         }
 
         btnNext.setOnClickListener{
-            val intent = Intent(this, UserDetailsP3::class.java)
-            startActivity(intent)
-            //TODO direct to the next registration page also use a try catch to detect if all fields
-            // are filled in prompt user if some are empty
+            try {
+                userDetails.mpassword = findViewById<EditText>(R.id.etxt_password).text.toString()
+                userDetails.mgender = findViewById<EditText>(R.id.etxt_gender).text.toString()
+                userDetails.msexuality = findViewById<EditText>(R.id.etxt_sexuality).text.toString()
+                val intent = Intent(this, UserDetailsP3::class.java)
+                intent.putExtra("User", userDetails)
+                startActivity(intent)
+            }catch (e: java.lang.NumberFormatException) {
+                //TODO send fill all fields error message
+            }
         }
     }
 }

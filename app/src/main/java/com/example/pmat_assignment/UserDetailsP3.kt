@@ -16,7 +16,7 @@ class UserDetailsP3 : AppCompatActivity() {
 
         val btnReturn = findViewById<Button>(R.id.btn_return)
         val btnNext = findViewById<Button>(R.id.btn_nextP3)
-        var userDetails:User
+        var userDetails = intent.getSerializableExtra("User") as User
 
         btnReturn.setOnClickListener{
             val intent = Intent(this, UserDetailsP2::class.java)
