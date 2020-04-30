@@ -13,16 +13,21 @@ class UserDetailsP2 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_details_p2)
 
-        val btnReturn = findViewById<Button>(R.id.btn_return)
-        val btnNext = findViewById<Button>(R.id.btn_nextp2)
         var userDetails = intent.getSerializableExtra("User") as User
 
+        val btnReturn = findViewById<Button>(R.id.btn_return)
+        val btnNext = findViewById<Button>(R.id.btn_nextp2)
+
         btnReturn.setOnClickListener{
+            //returns the user to the last registration page
             val intent = Intent(this, UserDetailsP1::class.java)
             startActivity(intent)
         }
 
         btnNext.setOnClickListener{
+            /*grabs the entered details from the activity and updates the userdetails object unless
+            any of the fields are null*/
+            //TODO this try catch will not work replace with an if == "" and do the same in regP1
             try {
                 userDetails.mpassword = findViewById<EditText>(R.id.etxt_password).text.toString()
                 userDetails.mgender = findViewById<EditText>(R.id.etxt_gender).text.toString()

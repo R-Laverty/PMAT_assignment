@@ -3,7 +3,9 @@ package com.example.logic
 import sun.security.util.Password
 import java.io.Serializable
 
-class User (firstName:String?, surname:String?, email:String?, dobDay:Int?, dobMonth:Int?, dobYear:Int?, age:Int?, gender:String?, sexuality:String?, password: String?): Serializable {
+class User (firstName:String?, surname:String?, email:String?, dobDay:Int?, dobMonth:Int?,
+            dobYear:Int?, age:Int?, gender:String?, sexuality:String?, password: String?,
+            bio:String?, hobbie1:String?, hobbie2:String?, hobbie3:String?): Serializable {
     var mfirstName = firstName
     var msurname = surname
     var memail = email
@@ -14,4 +16,8 @@ class User (firstName:String?, surname:String?, email:String?, dobDay:Int?, dobM
     var mgender = gender
     var msexuality = sexuality
     var mpassword = password//TODO encrypt this
+    var mbio = bio
+    var mhobbie1 = hobbie1
+    var mhobbie2 = hobbie2
+    var mhobbie3 = hobbie3
 }

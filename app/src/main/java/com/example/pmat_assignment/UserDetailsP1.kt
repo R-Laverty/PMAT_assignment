@@ -19,16 +19,22 @@ class UserDetailsP1 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_details_p1)
 
+        var userDetails = intent.getSerializableExtra("User") as User
+
         val btnReturn = findViewById<Button>(R.id.btn_return)
         val btnNext = findViewById<Button>(R.id.btn_next)
-        var userDetails = User(null,null,null,null,null,null,null,null,null,null)
 
         btnReturn.setOnClickListener{
+            //redirects the user to the LoginActivity layout
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
 
         btnNext.setOnClickListener{
+            /*grabs the entered userdetails from the layout and puts them into the userdetails
+            object. If any if the fields are null the exception will be caught and the user will
+            be asked to ensure all field are filled in, otherwise email and age/DOB are validated
+            and if they are valid the user is directed to the next registration page*/
             var errortxt = ""
             try {
                 val firstname = findViewById<EditText>(R.id.etxt_firstname).text.toString()

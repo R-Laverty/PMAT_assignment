@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UserDetailsP3"></activity>
+        <activity android:name=".ModifyAccount"></activity>
+        <activity android:name=".UserDetailsP3" />
         <activity android:name=".MainActivity" />
         <activity android:name=".UserDetailsP2" />
         <activity android:name=".UserDetailsP1" />

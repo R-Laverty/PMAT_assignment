@@ -30,4 +30,7 @@
     <string name="prompt_fill_all_fields">Please ensure all fields are filled in</string>
     <string name="invalid_email">Your email is invalid</string>
     <string name="invalid_DOB_Age">Your DOB or age are invalid</string>
+    <string name="info_default_profile">Age:\nGender:\nSexuality\n\nBio:\n\nHobbie 1:\nHobbie 2:\nHobbie 3:</string>
+    <string name="prompt_bio">Bio:</string>
+    <string name="btn_saveandReturn">Save and return</string>
 </resources>
