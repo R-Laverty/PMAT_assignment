@@ -15,10 +15,26 @@
         android:id="@+id/view"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:accessibilityHeading="false"
         android:background="@color/backgroundColour"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/txt_page_title_hobbies_3"
+        android:layout_width="112dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="504dp"
+        android:text="@string/title_hobbie_3"
+        android:textColor="@color/textColour"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/img_logo"
+        app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,6 +61,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/txt_page_title_hobbies_1"
+        android:layout_width="112dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="208dp"
+        android:text="@string/title_hobbie_1"
+        android:textColor="@color/textColour"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/img_logo"
+        app:layout_constraintHorizontal_bias="0.308"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_page_title_hobbies_2"
+        android:layout_width="112dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="360dp"
+        android:text="@string/title_hobbie_2"
+        android:textColor="@color/textColour"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/img_logo"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/btn_return"
         android:layout_width="wrap_content"
@@ -64,5 +108,40 @@
         android:text="@string/btn_text_next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/hobbies_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="200dp"
+        android:autofillHints="e.g. Sports, Gaming"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/title_hobbie_message"
+        app:layout_constraintStart_toStartOf="@+id/txt_page_title_hobbies_1"
+        app:layout_constraintTop_toTopOf="@+id/img_logo" />
+
+    <EditText
+        android:id="@+id/txt_hobbies_2_entry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="352dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/title_hobbie_message"
+        app:layout_constraintStart_toStartOf="@+id/txt_page_title_hobbies_2"
+        app:layout_constraintTop_toTopOf="@+id/img_logo" />
+
+    <EditText
+        android:id="@+id/txt_hobbies_3_entry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/title_hobbie_message"
+        tools:layout_editor_absoluteX="165dp"
+        tools:layout_editor_absoluteY="508dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

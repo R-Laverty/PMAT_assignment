@@ -36,6 +36,76 @@ fun validateAgeAndDOB(dayOfBirth: Int, monthOfBirth: Int, yearOfBirh: Int, age: 
 }
 
 fun getMatches(userDetails: User){
+    //Based on Gender
+    //SELECT first_name,last_name,DOB, gender, sexuality, hobbies_1,hobbies_2,hobbies_3
+   // FROM tbl_user_info,tbl_user_attraction,tbl_user_hobby
+  //  WHERE tbl_user_attraction.sexuality = 'Straight';
+
+   // SELECT first_name,last_name,DOB, gender, sexuality, hobbies_1,hobbies_2,hobbies_3
+  //  FROM tbl_user_info,tbl_user_attraction,tbl_user_hobby
+   // WHERE tbl_user_attraction.sexuality = 'Gay';
+
+  //  SELECT first_name,last_name,DOB, gender, sexuality, hobbies_1,hobbies_2,hobbies_3
+   // FROM tbl_user_info,tbl_user_attraction,tbl_user_hobby
+   // WHERE tbl_user_attraction.sexuality = 'Bisexual';
+
+   // SELECT first_name,last_name,DOB, gender, sexuality, hobbies_1,hobbies_2,hobbies_3
+   // FROM tbl_user_info,tbl_user_attraction,tbl_user_hobby
+   // WHERE tbl_user_attraction.sexuality = 'Lesbian';
+
+   // SELECT first_name,last_name,DOB, gender, sexuality, hobbies_1,hobbies_2,hobbies_3
+   // FROM tbl_user_info,tbl_user_attraction,tbl_user_hobby
+   // WHERE tbl_user_attraction.sexuality = 'Demisexual';
+
+   // SELECT first_name,last_name,DOB, gender, sexuality, hobbies_1,hobbies_2,hobbies_3
+   // FROM tbl_user_info,tbl_user_attraction,tbl_user_hobby
+   // WHERE tbl_user_attraction.sexuality = 'Pansexual';
+
+    //Based on Hobbies
+   // SELECT first_name,last_name,DOB, gender, sexuality, hobbies_1,hobbies_2,hobbies_3
+   // FROM tbl_user_info,tbl_user_attraction,tbl_user_hobby
+   // WHERE tbl_user_attraction.hobbies_1 = 'Cooking';
+
+   // SELECT first_name,last_name,DOB, gender, sexuality, hobbies_1,hobbies_2,hobbies_3
+   // FROM tbl_user_info,tbl_user_attraction,tbl_user_hobby
+   // WHERE tbl_user_attraction.hobbies_1 = 'History';
+
+   // SELECT first_name,last_name,DOB, gender, sexuality, hobbies_1,hobbies_2,hobbies_3
+   // FROM tbl_user_info,tbl_user_attraction,tbl_user_hobby
+   // WHERE tbl_user_attraction.hobbies_1 = 'Sports';
+
+   // SELECT first_name,last_name,DOB, gender, sexuality, hobbies_1,hobbies_2,hobbies_3
+   // FROM tbl_user_info,tbl_user_attraction,tbl_user_hobby
+   // WHERE tbl_user_attraction.hobbies_1 = 'Reading';
+
+   // SELECT first_name,last_name,DOB, gender, sexuality, hobbies_1,hobbies_2,hobbies_3
+   // FROM tbl_user_info,tbl_user_attraction,tbl_user_hobby
+   // WHERE tbl_user_attraction.hobbies_1 = 'Gaming';
+
+   // SELECT first_name,last_name,DOB, gender, sexuality, hobbies_1,hobbies_2,hobbies_3
+   // FROM tbl_user_info,tbl_user_attraction,tbl_user_hobby
+   // WHERE tbl_user_attraction.hobbies_1 = 'Gardening';
+
+   // SELECT first_name,last_name,DOB, gender, sexuality, hobbies_1,hobbies_2,hobbies_3
+   // FROM tbl_user_info,tbl_user_attraction,tbl_user_hobby
+   // WHERE tbl_user_attraction.hobbies_1 = 'Photography';
+
+   // SELECT first_name,last_name,DOB, gender, sexuality, hobbies_1,hobbies_2,hobbies_3
+   // FROM tbl_user_info,tbl_user_attraction,tbl_user_hobby
+   // WHERE tbl_user_attraction.hobbies_1 = 'Painting';
+
+  //  SELECT first_name,last_name,DOB, gender, sexuality, hobbies_1,hobbies_2,hobbies_3
+  //  FROM tbl_user_info,tbl_user_attraction,tbl_user_hobby
+   // WHERE tbl_user_attraction.hobbies_1 = 'Volunteering';
+
+  //  SELECT first_name,last_name,DOB, gender, sexuality, hobbies_1,hobbies_2,hobbies_3
+  //  FROM tbl_user_info,tbl_user_attraction,tbl_user_hobby
+  //  WHERE tbl_user_attraction.hobbies_1 = 'Movies';
+
+   // SELECT first_name,last_name,DOB, gender, sexuality, hobbies_1,hobbies_2,hobbies_3
+   // FROM tbl_user_info,tbl_user_attraction,tbl_user_hobby
+  //  WHERE tbl_user_attraction.hobbies_1 = 'Anime';
+
     //get matches should perform a database lookup for all users with at least 2? matching hobbies
     // as well as users desired partners sexuality then return them in a list
 }

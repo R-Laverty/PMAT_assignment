@@ -33,4 +33,8 @@
     <string name="info_default_profile">Age:\nGender:\nSexuality\n\nBio:\n\nHobbie 1:\nHobbie 2:\nHobbie 3:</string>
     <string name="prompt_bio">Bio:</string>
     <string name="btn_saveandReturn">Save and return</string>
+    <string name="title_hobbie_1">Hobbie #1</string>
+    <string name="title_hobbie_2">Hobbie #2</string>
+    <string name="title_hobbie_3">Hobbie #3</string>
+    <string name="title_hobbie_message">Please Enter a hobby</string>
 </resources>
