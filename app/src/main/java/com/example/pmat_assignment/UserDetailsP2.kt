@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import com.example.logic.Logic
 import com.example.logic.User
 
 class UserDetailsP2 : AppCompatActivity() {
@@ -14,6 +15,7 @@ class UserDetailsP2 : AppCompatActivity() {
         setContentView(R.layout.activity_user_details_p2)
 
         var userDetails = intent.getSerializableExtra("User") as User
+        var mLogic = intent.getSerializableExtra("aLogic") as Logic
 
         val btnReturn = findViewById<Button>(R.id.btn_return)
         val btnNext = findViewById<Button>(R.id.btn_nextp2)
@@ -34,6 +36,7 @@ class UserDetailsP2 : AppCompatActivity() {
                 userDetails.msexuality = findViewById<EditText>(R.id.etxt_sexuality).text.toString()
                 val intent = Intent(this, UserDetailsP3::class.java)
                 intent.putExtra("User", userDetails)
+                intent.putExtra("aLogic", mLogic)
                 startActivity(intent)
             }catch (e: java.lang.NumberFormatException) {
                 //TODO send fill all fields error message

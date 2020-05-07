@@ -3,14 +3,11 @@ package com.example.pmat_assignment
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.AndroidRuntimeException
 import android.widget.Button
-import android.widget.CalendarView
 import android.widget.EditText
 import android.widget.TextView
+import com.example.logic.Logic
 import com.example.logic.User
-import com.example.logic.validateAgeAndDOB
-import com.example.logic.validateEmail
 import java.util.*
 
 class UserDetailsP1 : AppCompatActivity() {
@@ -20,6 +17,7 @@ class UserDetailsP1 : AppCompatActivity() {
         setContentView(R.layout.activity_user_details_p1)
 
         var userDetails = intent.getSerializableExtra("User") as User
+        var mLogic = intent.getSerializableExtra("aLogic") as Logic
 
         val btnReturn = findViewById<Button>(R.id.btn_return)
         val btnNext = findViewById<Button>(R.id.btn_next)
@@ -47,9 +45,9 @@ class UserDetailsP1 : AppCompatActivity() {
                 val age = findViewById<EditText>(R.id.etxt_age).text.toString().toInt()
                 val currentYear = Calendar.getInstance().get(Calendar.YEAR)
 
-                if (!validateEmail(email)) {
+                if (!mLogic.validateEmail(email)) {
                     errortxt = getString(R.string.invalid_email)
-                } else if (!validateAgeAndDOB(dayOfBirth, monthOfBirth, yearOfBirth, age, currentYear)) {
+                } else if (!mLogic.validateAgeAndDOB(dayOfBirth, monthOfBirth, yearOfBirth, age, currentYear)) {
                     errortxt = getString(R.string.invalid_DOB_Age)
                 } else {
                     userDetails.mfirstName = firstname
@@ -62,6 +60,7 @@ class UserDetailsP1 : AppCompatActivity() {
 
                     val intent = Intent(this, UserDetailsP2::class.java)
                     intent.putExtra("User", userDetails)
+                    intent.putExtra("aLogic", mLogic)
                     startActivity(intent)
                 }
             } catch (e: java.lang.NumberFormatException) {

@@ -6,6 +6,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     testImplementation "org.junit.jupiter:junit-jupiter:5.5.2"
     testImplementation "org.junit.jupiter:junit-jupiter-params:5.5.2"
+    compile project(':jtds-1.2.5')
 //    testRuntime "org.junit.vintage:junit-vintage-engine:5.5.2"
 }
 

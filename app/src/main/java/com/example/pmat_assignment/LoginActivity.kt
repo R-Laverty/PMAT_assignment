@@ -3,12 +3,12 @@ package com.example.pmat_assignment
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.StrictMode
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import com.example.logic.Logic
 import com.example.logic.User
-import com.example.logic.SignIn
-import com.example.logic.validateSignIn
 
 class LoginActivity : AppCompatActivity() {
 
@@ -16,7 +16,10 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        var userDetails = User(null,null,null,null,null,null,null,null,null,null, null,null,null,null)
+        var userDetails = User(null,null,null,null,null,
+            null,null,null,null,null, null,
+            null,null,null, null, null)
+        var mLogic = Logic()
 
         val btnRegister = findViewById<Button>(R.id.btn_register)
         val btnSignIn = findViewById<Button>(R.id.btn_login)
@@ -31,12 +34,15 @@ class LoginActivity : AppCompatActivity() {
         btnSignIn.setOnClickListener{
             //checks the user exists on the database then retrives their details if they do
             // otherwise displays username/password incorrect
+            val policy: StrictMode.ThreadPolicy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+            StrictMode.setThreadPolicy(policy)
             val username: String = findViewById<EditText>(R.id.txt_username).text.toString()
             val password: String = findViewById<EditText>(R.id.password).text.toString()
 
-            if (validateSignIn(username, password)) {
-                SignIn(username,password,userDetails)
+            if (mLogic.validateSignIn(username, password)) {
+                mLogic.SignIn(username,password,userDetails)
                 val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra("aLogic", mLogic)
                 intent.putExtra("User", userDetails)
                 startActivity(intent)
             }

@@ -1,2 +1,2 @@
-include ':app', ':logic'
+include ':app', ':logic', ':jtds-1.2.5'
 rootProject.name='PMAT_assignment'

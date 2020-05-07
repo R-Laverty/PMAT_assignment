@@ -5,7 +5,7 @@ import java.io.Serializable
 
 class User (firstName:String?, surname:String?, email:String?, dobDay:Int?, dobMonth:Int?,
             dobYear:Int?, age:Int?, gender:String?, sexuality:String?, password: String?,
-            bio:String?, hobbie1:String?, hobbie2:String?, hobbie3:String?): Serializable {
+            bio:String?, hobbie1:String?, hobbie2:String?, hobbie3:String?, DOB: String?, Rtype: String?): Serializable {
     var mfirstName = firstName
     var msurname = surname
     var memail = email
@@ -20,4 +20,6 @@ class User (firstName:String?, surname:String?, email:String?, dobDay:Int?, dobM
     var mhobbie1 = hobbie1
     var mhobbie2 = hobbie2
     var mhobbie3 = hobbie3
+    var mDOB = DOB
+    var mRtype = Rtype
 }
