@@ -51,6 +51,9 @@ class Logic: Serializable {
                     userDetails.msexuality = rs.getString("sexuality")
                     userDetails.mRtype = rs.getString("type_of_relationship")
                 }
+                con.close()
+                stmt.close()
+                rs.close()
             }
         }catch (e: java.lang.Exception){}
         return userDetails
@@ -87,22 +90,137 @@ class Logic: Serializable {
         return false
     }
 
-    fun getMatches(userDetails: User) {
-        //Based on Gender
-        //SELECT first_name,last_name,DOB, gender, sexuality, hobbies_1,hobbies_2,hobbies_3
-        // FROM tbl_user_info,tbl_user_attraction,tbl_user_hobby
-        //  WHERE tbl_user_attraction.sexuality = 'Straight';
+    fun getMatches(userDetails: User): List<User> {
 
-        //Based on Hobbies
-        // SELECT first_name,last_name,DOB, gender, sexuality, hobbies_1,hobbies_2,hobbies_3
-        // FROM tbl_user_info,tbl_user_attraction,tbl_user_hobby
-        // WHERE tbl_user_attraction.hobbies_1 = 'Cooking';
+        var lowPriomatches: List<User> = listOf()
+        var medPriomatches: List<User> = listOf()
+        var highPriomatches: List<User> = listOf()
+        var allmatches: List<User> = listOf()
 
-        //get matches should perform a database lookup for all users with at least 2? matching hobbies
-        // as well as users desired partners sexuality then return them in a list
+        var hobbie1 = userDetails.mhobbie1
+        var hobbie2 = userDetails.mhobbie2
+        var hobbie3 = userDetails.mhobbie3
+
+        try {
+            val con = connectionclass()
+            if (con != null) {
+
+                //High priority matches
+                var stringQuery =
+                    "SELECT * FROM tbl_user_info, tbl_user_hobby, tbl_user_attraction WHERE " +
+                            "tbl_user_info.user_id = tbl_user_hobby.fk_user_id " +
+                            "AND tbl_user_info.user_id = tbl_user_attraction.fk_user_id " +
+                            "AND (tbl_user_hobby.hobbies_1 = '$hobbie1'OR tbl_user_hobby.hobbies_2 = '$hobbie1' OR tbl_user_hobby.hobbies_3 = '$hobbie1')" +
+                            "AND (tbl_user_hobby.hobbies_1 = '$hobbie2'OR tbl_user_hobby.hobbies_2 = '$hobbie2' OR tbl_user_hobby.hobbies_3 = '$hobbie2')" +
+                            "AND (tbl_user_hobby.hobbies_1 = '$hobbie3'OR tbl_user_hobby.hobbies_2 = '$hobbie3' OR tbl_user_hobby.hobbies_3 = '$hobbie3')"
+                var stmt: Statement = con.createStatement()
+                var rs: ResultSet = stmt.executeQuery(stringQuery)
+                while (rs.next()){
+                    var match = User(rs.getString("first_name"),rs.getString("last_name"),
+                        rs.getString("email"), null, null, null,
+                        null, rs.getString("gender"),rs.getString("sexuality"),
+                        null, rs.getString("BIO"), rs.getString("hobbies_1"),
+                        rs.getString("hobbies_2"), rs.getString("hobbies_3"), rs.getString("DOB"),
+                        rs.getString("type_of_relationship"))
+                    highPriomatches = highPriomatches.plus(match)
+                }
+
+                //medium prio matches
+                stringQuery =
+                    "SELECT * FROM tbl_user_info, tbl_user_hobby, tbl_user_attraction " +
+                        "WHERE tbl_user_info.user_id = tbl_user_hobby.fk_user_id " +
+                        "AND tbl_user_info.user_id = tbl_user_attraction.fk_user_id " +
+                        "AND (tbl_user_hobby.hobbies_1 = '${userDetails.mhobbie1}'OR tbl_user_hobby.hobbies_2 = '${userDetails.mhobbie1}' OR tbl_user_hobby.hobbies_3 = '${userDetails.mhobbie1}')" +
+                        "AND ((tbl_user_hobby.hobbies_1 = '${userDetails.mhobbie2}'OR tbl_user_hobby.hobbies_2 = '${userDetails.mhobbie2}' OR tbl_user_hobby.hobbies_3 = '${userDetails.mhobbie2}')" +
+                        "OR (tbl_user_hobby.hobbies_1 = '${userDetails.mhobbie3}'OR tbl_user_hobby.hobbies_2 = '${userDetails.mhobbie3}' OR tbl_user_hobby.hobbies_3 = '${userDetails.mhobbie3}'))"
+
+                stmt = con.createStatement()
+                rs = stmt.executeQuery(stringQuery)
+                while (rs.next()){
+                    var match = User(rs.getString("first_name"),rs.getString("last_name"),
+                        rs.getString("email"), null, null, null,
+                        null, rs.getString("gender"),rs.getString("sexuality"),
+                        null, rs.getString("BIO"), rs.getString("hobbies_1"),
+                        rs.getString("hobbies_2"), rs.getString("hobbies_3"), rs.getString("DOB"),
+                        rs.getString("type_of_relationship"))
+                    medPriomatches = medPriomatches.plus(match)
+                }
+
+                //low Prio matches
+                stringQuery =
+                    "SELECT * FROM tbl_user_info, tbl_user_hobby, tbl_user_attraction WHERE " +
+                            "tbl_user_info.user_id = tbl_user_hobby.fk_user_id " +
+                            "AND tbl_user_info.user_id = tbl_user_attraction.fk_user_id " +
+                            "AND ((tbl_user_hobby.hobbies_1 = '${userDetails.mhobbie1}'OR tbl_user_hobby.hobbies_2 = '${userDetails.mhobbie1}' OR tbl_user_hobby.hobbies_3 = '${userDetails.mhobbie1}')" +
+                            "OR (tbl_user_hobby.hobbies_1 = '${userDetails.mhobbie2}'OR tbl_user_hobby.hobbies_2 = '${userDetails.mhobbie2}' OR tbl_user_hobby.hobbies_3 = '${userDetails.mhobbie2}')" +
+                            "OR (tbl_user_hobby.hobbies_1 = '${userDetails.mhobbie3}'OR tbl_user_hobby.hobbies_2 = '${userDetails.mhobbie3}' OR tbl_user_hobby.hobbies_3 = '${userDetails.mhobbie3}'))"
+
+                stmt = con.createStatement()
+                rs = stmt.executeQuery(stringQuery)
+                while (rs.next()){
+                    var match = User(rs.getString("first_name"),rs.getString("last_name"),
+                        rs.getString("email"), null, null, null,
+                        null, rs.getString("gender"),rs.getString("sexuality"),
+                        null, rs.getString("BIO"), rs.getString("hobbies_1"),
+                        rs.getString("hobbies_2"), rs.getString("hobbies_3"), rs.getString("DOB"),
+                        rs.getString("type_of_relationship"))
+                    lowPriomatches = lowPriomatches.plus(match)
+
+                    con.close()
+                    stmt.close()
+                    rs.close()
+                }
+            }
+        }catch (e: java.lang.Exception){}
+        lowPriomatches = lowPriomatches.filter { !medPriomatches.contains(it) && !highPriomatches.contains(it) }
+        medPriomatches = medPriomatches.filter { !highPriomatches.contains(it) }
+        allmatches = allmatches.plus(lowPriomatches)
+        allmatches = allmatches.plus(medPriomatches)
+        allmatches = allmatches.plus(highPriomatches)
+
+        return allmatches
     }
 
     fun updateDatabase(userDetails: User) {
         //update database should update the database with the most up to date user details
+        try{
+            val con = connectionclass()
+            if (con != null){
+                var stringQuery = "BEGIN; " +
+                        "INSERT INTO tbl_user_info(first_name, last_name, password, email) VALUES ('${userDetails.mfirstName}','${userDetails.msurname}','${userDetails.mpassword}','${userDetails.memail}');" +
+                        "INSERT INTO tbl_user_hobby(hobbies_1, hobbies_2, hobbies_3) VALUES ('${userDetails.mhobbie1}', '${userDetails.mhobbie2}', '${userDetails.mhobbie3}'); " +
+                        "INSERT INTO tbl_user_attraction(gender, sexuality) VALUES('${userDetails.mgender}','${userDetails.msexuality}');" +
+                        "END;"
+
+                val stmt = con.createStatement()
+                stmt.executeQuery(stringQuery)
+
+                con.close()
+                stmt.close()
+            }
+        }catch (e: java.lang.Exception){}
+    }
+
+    fun formatForDatabase(name: String): String{
+        var mName = name.trim(' ')
+        mName = mName.toLowerCase()
+        var mNameA = mName.toCharArray()
+        mNameA[0] = mNameA[0].toUpperCase()
+        mName = ""
+        for(char in mNameA){
+            mName = "$mName$char"
+        }
+        return mName
+    }
+
+    fun ValidateGender(gender: String): String{
+        val mGender = gender.toUpperCase()
+        if (mGender == "M" || mGender == "MALE"){
+            return "M"
+        }else if (mGender == "F" || mGender == "FEMALE"){
+            return "F"
+        }else{
+            return "/"
+        }
     }
 }

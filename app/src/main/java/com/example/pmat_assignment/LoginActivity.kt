@@ -28,6 +28,7 @@ class LoginActivity : AppCompatActivity() {
             //directs the user to the registration layouts
             val intent = Intent(this, UserDetailsP1::class.java)
             intent.putExtra("User", userDetails)
+            intent.putExtra("aLogic", mLogic)
             startActivity(intent)
         }
 

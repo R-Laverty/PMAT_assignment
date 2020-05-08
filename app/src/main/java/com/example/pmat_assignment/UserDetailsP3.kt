@@ -3,6 +3,7 @@ package com.example.pmat_assignment
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.StrictMode
 import android.widget.Button
 import android.widget.EditText
 import com.example.logic.Logic
@@ -21,6 +22,10 @@ class UserDetailsP3 : AppCompatActivity() {
         val btnReturn = findViewById<Button>(R.id.btn_return)
         val btnNext = findViewById<Button>(R.id.btn_nextP3)
 
+        val etxtH1 = findViewById<EditText>(R.id.hobbies_1)
+        val etxtH2 = findViewById<EditText>(R.id.txt_hobbies_2_entry)
+        val etxtH3 = findViewById<EditText>(R.id.txt_hobbies_3_entry)
+
         btnReturn.setOnClickListener{
             val intent = Intent(this, UserDetailsP2::class.java)
             intent.putExtra("User", userDetails)
@@ -29,6 +34,15 @@ class UserDetailsP3 : AppCompatActivity() {
         }
 
         btnNext.setOnClickListener{
+            userDetails.mhobbie1 = mLogic.formatForDatabase(etxtH1.text.toString())
+            userDetails.mhobbie2 = mLogic.formatForDatabase(etxtH2.text.toString())
+            userDetails.mhobbie3 = mLogic.formatForDatabase(etxtH3.text.toString())
+
+            val policy: StrictMode.ThreadPolicy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+            StrictMode.setThreadPolicy(policy)
+
+            mLogic.updateDatabase(userDetails)
+
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra("User", userDetails)
             intent.putExtra("aLogic", mLogic)

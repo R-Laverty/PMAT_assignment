@@ -32,8 +32,8 @@ class UserDetailsP2 : AppCompatActivity() {
             //TODO this try catch will not work replace with an if == "" and do the same in regP1
             try {
                 userDetails.mpassword = findViewById<EditText>(R.id.etxt_password).text.toString()
-                userDetails.mgender = findViewById<EditText>(R.id.etxt_gender).text.toString()
-                userDetails.msexuality = findViewById<EditText>(R.id.etxt_sexuality).text.toString()
+                userDetails.mgender = mLogic.ValidateGender(findViewById<EditText>(R.id.etxt_gender).text.toString())
+                userDetails.msexuality = mLogic.formatForDatabase(findViewById<EditText>(R.id.etxt_sexuality).text.toString())
                 val intent = Intent(this, UserDetailsP3::class.java)
                 intent.putExtra("User", userDetails)
                 intent.putExtra("aLogic", mLogic)

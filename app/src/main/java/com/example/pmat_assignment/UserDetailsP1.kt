@@ -35,8 +35,8 @@ class UserDetailsP1 : AppCompatActivity() {
             and if they are valid the user is directed to the next registration page*/
             var errortxt = ""
             try {
-                val firstname = findViewById<EditText>(R.id.etxt_firstname).text.toString()
-                val surname = findViewById<EditText>(R.id.etxt_surname).text.toString()
+                val firstname = mLogic.formatForDatabase(findViewById<EditText>(R.id.etxt_firstname).text.toString())
+                val surname = mLogic.formatForDatabase(findViewById<EditText>(R.id.etxt_surname).text.toString())
                 val email = findViewById<EditText>(R.id.etxt_email).text.toString()
                 val dayOfBirth = findViewById<EditText>(R.id.etxt_dob_day).text.toString().toInt()
                 val monthOfBirth =
