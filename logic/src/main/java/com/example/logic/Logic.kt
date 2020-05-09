@@ -185,11 +185,12 @@ class Logic: Serializable {
         //update database should update the database with the most up to date user details
         try{
             val con = connectionclass()
+            val userID = generateUserID(userDetails, con)
             if (con != null){
                 var stringQuery = "BEGIN; " +
-                        "INSERT INTO tbl_user_info(first_name, last_name, password, email) VALUES ('${userDetails.mfirstName}','${userDetails.msurname}','${userDetails.mpassword}','${userDetails.memail}');" +
-                        "INSERT INTO tbl_user_hobby(hobbies_1, hobbies_2, hobbies_3) VALUES ('${userDetails.mhobbie1}', '${userDetails.mhobbie2}', '${userDetails.mhobbie3}'); " +
-                        "INSERT INTO tbl_user_attraction(gender, sexuality) VALUES('${userDetails.mgender}','${userDetails.msexuality}');" +
+                        "INSERT INTO tbl_user_info(user_id,first_name, last_name, password, email) VALUES ('$userID','${userDetails.mfirstName}','${userDetails.msurname}','${userDetails.mpassword}','${userDetails.memail}');" +
+                        "INSERT INTO tbl_user_hobby(fk_user_id,hobbies_1, hobbies_2, hobbies_3) VALUES ('$userID','${userDetails.mhobbie1}', '${userDetails.mhobbie2}', '${userDetails.mhobbie3}'); " +
+                        "INSERT INTO tbl_user_attraction(fk_user_id,gender, sexuality) VALUES('$userID','${userDetails.mgender}','${userDetails.msexuality}');" +
                         "END;"
 
                 val stmt = con.createStatement()
@@ -222,5 +223,37 @@ class Logic: Serializable {
         }else{
             return "/"
         }
+    }
+
+    fun generateUserID(userDetails: User, con: Connection?): String{
+        val firstname  = userDetails.mfirstName
+        val surname = userDetails.msurname
+        var idNumber: Int? = null
+        var userId: String = ""
+        if (firstname != null && surname != null){
+            userId = "${firstname.toCharArray()[0]}${surname.toCharArray()[0]}"
+        }
+        if (con!=null){
+            try {
+                var tmpIDNo = 0
+                val stmt = con.createStatement()
+                while (idNumber == null) {
+                    var tmpID = "$userId$tmpIDNo"
+                    var stringQuery = "SELECT user_id" +
+                            "FROM tbl_user_info" +
+                            "WHERE user_id =  $tmpID"
+
+                    val rs: ResultSet = stmt.executeQuery(stringQuery)
+                    if (rs.getString("user_id") == null){
+                        idNumber = tmpIDNo
+                    }else{
+                        tmpIDNo++
+                    }
+                }
+                con.close()
+                stmt.close()
+            }catch (e: java.lang.Exception){}
+        }
+        return "$userId$idNumber"
     }
 }
