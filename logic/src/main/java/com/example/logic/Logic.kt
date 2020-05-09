@@ -59,13 +59,6 @@ class Logic: Serializable {
         return userDetails
     }
 
-    fun validateSignIn(username: String, password: String): Boolean {
-        // validate sign in should check the database for the entered username and password and return
-        // true if the user is found
-        //TODO validate sign in return true if sign in is valid and user exists
-        return true
-    }
-
     fun validateEmail(email: String): Boolean {
         //validate email does basic validation to check weather an email is an email and returns false
         // if it isnt
@@ -116,12 +109,12 @@ class Logic: Serializable {
                 var stmt: Statement = con.createStatement()
                 var rs: ResultSet = stmt.executeQuery(stringQuery)
                 while (rs.next()){
-                    var match = User(rs.getString("first_name"),rs.getString("last_name"),
+                    var match = User(rs.getString("user_id"),rs.getString("first_name"),rs.getString("last_name"),
                         rs.getString("email"), null, null, null,
                         null, rs.getString("gender"),rs.getString("sexuality"),
                         null, rs.getString("BIO"), rs.getString("hobbies_1"),
                         rs.getString("hobbies_2"), rs.getString("hobbies_3"), rs.getString("DOB"),
-                        rs.getString("type_of_relationship"))
+                        rs.getString("type_of_relationship"), null, null)
                     highPriomatches = highPriomatches.plus(match)
                 }
 
@@ -137,12 +130,12 @@ class Logic: Serializable {
                 stmt = con.createStatement()
                 rs = stmt.executeQuery(stringQuery)
                 while (rs.next()){
-                    var match = User(rs.getString("first_name"),rs.getString("last_name"),
+                    var match = User(rs.getString("user_id"),rs.getString("first_name"),rs.getString("last_name"),
                         rs.getString("email"), null, null, null,
                         null, rs.getString("gender"),rs.getString("sexuality"),
                         null, rs.getString("BIO"), rs.getString("hobbies_1"),
                         rs.getString("hobbies_2"), rs.getString("hobbies_3"), rs.getString("DOB"),
-                        rs.getString("type_of_relationship"))
+                        rs.getString("type_of_relationship"), null, null)
                     medPriomatches = medPriomatches.plus(match)
                 }
 
@@ -158,12 +151,12 @@ class Logic: Serializable {
                 stmt = con.createStatement()
                 rs = stmt.executeQuery(stringQuery)
                 while (rs.next()){
-                    var match = User(rs.getString("first_name"),rs.getString("last_name"),
+                    var match = User(rs.getString("user_id"),rs.getString("first_name"),rs.getString("last_name"),
                         rs.getString("email"), null, null, null,
                         null, rs.getString("gender"),rs.getString("sexuality"),
                         null, rs.getString("BIO"), rs.getString("hobbies_1"),
                         rs.getString("hobbies_2"), rs.getString("hobbies_3"), rs.getString("DOB"),
-                        rs.getString("type_of_relationship"))
+                        rs.getString("type_of_relationship"), null, null)
                     lowPriomatches = lowPriomatches.plus(match)
 
                     con.close()
@@ -255,5 +248,35 @@ class Logic: Serializable {
             }catch (e: java.lang.Exception){}
         }
         return "$userId$idNumber"
+    }
+
+    fun likeMatch(userDetails: User, likedMatch:String?){
+        val con = connectionclass()
+        if (con != null){
+            try {
+                val stringQuery = "UPDATE tbl_user_attraction" +
+                        "SET liked_matches = '${userDetails.mliked_matches}'$likedMatch" +
+                        "WHERE fk_user_id = $"
+                val stmt = con.createStatement()
+                val rs: ResultSet = stmt.executeQuery(stringQuery)
+                con.close()
+                stmt.close()
+            }catch (e: java.lang.Exception){}
+        }
+    }
+
+    fun dislikeMatch(userDetails: User, dislikedMatch:String?){
+        val con = connectionclass()
+        if (con != null){
+            try {
+                val stringQuery = "UPDATE tbl_user_attraction" +
+                        "SET disliked_matches = '${userDetails.mliked_matches}'$dislikedMatch" +
+                        "WHERE"
+                val stmt = con.createStatement()
+                val rs: ResultSet = stmt.executeQuery(stringQuery)
+                con.close()
+                stmt.close()
+            }catch (e: java.lang.Exception){}
+        }
     }
 }

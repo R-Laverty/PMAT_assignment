@@ -18,7 +18,8 @@ class LoginActivity : AppCompatActivity() {
 
         var userDetails = User(null,null,null,null,null,
             null,null,null,null,null, null,
-            null,null,null, null, null)
+            null,null,null, null, null, null,
+            null,null)
         var mLogic = Logic()
 
         val btnRegister = findViewById<Button>(R.id.btn_register)
@@ -40,8 +41,8 @@ class LoginActivity : AppCompatActivity() {
             val username: String = findViewById<EditText>(R.id.txt_username).text.toString()
             val password: String = findViewById<EditText>(R.id.password).text.toString()
 
-            if (mLogic.validateSignIn(username, password)) {
-                mLogic.SignIn(username,password,userDetails)
+                userDetails = mLogic.SignIn(username,password,userDetails)
+            if (userDetails.mfirstName != null){
                 val intent = Intent(this, MainActivity::class.java)
                 intent.putExtra("aLogic", mLogic)
                 intent.putExtra("User", userDetails)

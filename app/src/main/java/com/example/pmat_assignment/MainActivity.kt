@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        fabLikeMatch.setOnClickListener{
+        fun nextMatch(){
             currentMatch = currentMatch++
             if (matches.getOrNull(currentMatch) != null){
                 bio = "Age:\nGender: ${matches[currentMatch].mgender}\nSexuality: ${matches[currentMatch].msexuality}\n" +
@@ -50,7 +50,19 @@ class MainActivity : AppCompatActivity() {
                         "Hobbie 1: ${matches[currentMatch].mhobbie1}\nHobbie 2: ${matches[currentMatch].mhobbie2}\n" +
                         "Hobbie 3: ${matches[currentMatch].mhobbie3}"
                 bioText.text = bio
+            }else{
+                val endOfMatches = "No further matches found"
+                bioText.text = endOfMatches
             }
+        }
+
+        fabLikeMatch.setOnClickListener{
+            mLogic.likeMatch(userDetails, matches[currentMatch].mfirstName)
+            nextMatch()
+        }
+
+        fabDislikeMatch.setOnClickListener{
+            nextMatch()
         }
     }
 }
