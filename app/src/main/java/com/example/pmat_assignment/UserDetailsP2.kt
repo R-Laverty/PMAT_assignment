@@ -23,6 +23,8 @@ class UserDetailsP2 : AppCompatActivity() {
         btnReturn.setOnClickListener{
             //returns the user to the last registration page
             val intent = Intent(this, UserDetailsP1::class.java)
+            intent.putExtra("User", userDetails)
+            intent.putExtra("aLogic", mLogic)
             startActivity(intent)
         }
 
@@ -34,7 +36,7 @@ class UserDetailsP2 : AppCompatActivity() {
                 userDetails.mpassword = findViewById<EditText>(R.id.etxt_password).text.toString()
                 userDetails.mgender = mLogic.ValidateGender(findViewById<EditText>(R.id.etxt_gender).text.toString())
                 userDetails.msexuality = mLogic.formatForDatabase(findViewById<EditText>(R.id.etxt_sexuality).text.toString())
-                val intent = Intent(this, UserDetailsP3::class.java)
+                val intent = Intent(this, UserDetailsBIO::class.java)
                 intent.putExtra("User", userDetails)
                 intent.putExtra("aLogic", mLogic)
                 startActivity(intent)

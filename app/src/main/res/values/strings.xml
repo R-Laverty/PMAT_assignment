@@ -37,4 +37,5 @@
     <string name="title_hobbie_2">Hobbie #2</string>
     <string name="title_hobbie_3">Hobbie #3</string>
     <string name="title_hobbie_message">Please Enter a hobby</string>
+    <string name="prompt_bio_main">BIO(please enter some details about yourself):</string>
 </resources>

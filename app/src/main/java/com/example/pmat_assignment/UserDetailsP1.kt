@@ -25,6 +25,8 @@ class UserDetailsP1 : AppCompatActivity() {
         btnReturn.setOnClickListener{
             //redirects the user to the LoginActivity layout
             val intent = Intent(this, LoginActivity::class.java)
+            intent.putExtra("User", userDetails)
+            intent.putExtra("aLogic", mLogic)
             startActivity(intent)
         }
 

@@ -39,10 +39,12 @@ class Logic: Serializable {
                 val stmt: Statement = con.createStatement()
                 val rs: ResultSet = stmt.executeQuery(stringQuery)
                 if (rs.next()){
+                    userDetails.musername = rs.getString("user_id")
                     userDetails.mfirstName = rs.getString("first_name")
                     userDetails.msurname = rs.getString("last_name")
                     userDetails.memail = rs.getString("email")
                     userDetails.mDOB = rs.getString("DOB").toString()
+                    userDetails.mage = rs.getString("age").toInt()
                     userDetails.mbio = rs.getString("BIO")
                     userDetails.mhobbie1 = rs.getString("hobbies_1")
                     userDetails.mhobbie2 = rs.getString("hobbies_2")
@@ -50,6 +52,8 @@ class Logic: Serializable {
                     userDetails.mgender = rs.getString("gender")
                     userDetails.msexuality = rs.getString("sexuality")
                     userDetails.mRtype = rs.getString("type_of_relationship")
+                    userDetails.mliked_matches = rs.getString("liked_matches")
+                    userDetails.mdisliked_matches = rs.getString("disliked_matches")
                 }
                 con.close()
                 stmt.close()
@@ -95,93 +99,68 @@ class Logic: Serializable {
         var hobbie3 = userDetails.mhobbie3
 
         try {
-            val con = connectionclass()
+            val con: Connection? = connectionclass()
             if (con != null) {
-
-                //High priority matches
-                var stringQuery =
-                    "SELECT * FROM tbl_user_info, tbl_user_hobby, tbl_user_attraction WHERE " +
-                            "tbl_user_info.user_id = tbl_user_hobby.fk_user_id " +
-                            "AND tbl_user_info.user_id = tbl_user_attraction.fk_user_id " +
-                            "AND (tbl_user_hobby.hobbies_1 = '$hobbie1'OR tbl_user_hobby.hobbies_2 = '$hobbie1' OR tbl_user_hobby.hobbies_3 = '$hobbie1')" +
-                            "AND (tbl_user_hobby.hobbies_1 = '$hobbie2'OR tbl_user_hobby.hobbies_2 = '$hobbie2' OR tbl_user_hobby.hobbies_3 = '$hobbie2')" +
-                            "AND (tbl_user_hobby.hobbies_1 = '$hobbie3'OR tbl_user_hobby.hobbies_2 = '$hobbie3' OR tbl_user_hobby.hobbies_3 = '$hobbie3')"
-                var stmt: Statement = con.createStatement()
-                var rs: ResultSet = stmt.executeQuery(stringQuery)
-                while (rs.next()){
-                    var match = User(rs.getString("user_id"),rs.getString("first_name"),rs.getString("last_name"),
-                        rs.getString("email"), null, null, null,
-                        null, rs.getString("gender"),rs.getString("sexuality"),
-                        null, rs.getString("BIO"), rs.getString("hobbies_1"),
-                        rs.getString("hobbies_2"), rs.getString("hobbies_3"), rs.getString("DOB"),
-                        rs.getString("type_of_relationship"), null, null)
-                    highPriomatches = highPriomatches.plus(match)
-                }
-
-                //medium prio matches
-                stringQuery =
-                    "SELECT * FROM tbl_user_info, tbl_user_hobby, tbl_user_attraction " +
-                        "WHERE tbl_user_info.user_id = tbl_user_hobby.fk_user_id " +
-                        "AND tbl_user_info.user_id = tbl_user_attraction.fk_user_id " +
-                        "AND (tbl_user_hobby.hobbies_1 = '${userDetails.mhobbie1}'OR tbl_user_hobby.hobbies_2 = '${userDetails.mhobbie1}' OR tbl_user_hobby.hobbies_3 = '${userDetails.mhobbie1}')" +
-                        "AND ((tbl_user_hobby.hobbies_1 = '${userDetails.mhobbie2}'OR tbl_user_hobby.hobbies_2 = '${userDetails.mhobbie2}' OR tbl_user_hobby.hobbies_3 = '${userDetails.mhobbie2}')" +
-                        "OR (tbl_user_hobby.hobbies_1 = '${userDetails.mhobbie3}'OR tbl_user_hobby.hobbies_2 = '${userDetails.mhobbie3}' OR tbl_user_hobby.hobbies_3 = '${userDetails.mhobbie3}'))"
-
-                stmt = con.createStatement()
-                rs = stmt.executeQuery(stringQuery)
-                while (rs.next()){
-                    var match = User(rs.getString("user_id"),rs.getString("first_name"),rs.getString("last_name"),
-                        rs.getString("email"), null, null, null,
-                        null, rs.getString("gender"),rs.getString("sexuality"),
-                        null, rs.getString("BIO"), rs.getString("hobbies_1"),
-                        rs.getString("hobbies_2"), rs.getString("hobbies_3"), rs.getString("DOB"),
-                        rs.getString("type_of_relationship"), null, null)
-                    medPriomatches = medPriomatches.plus(match)
-                }
-
                 //low Prio matches
-                stringQuery =
-                    "SELECT * FROM tbl_user_info, tbl_user_hobby, tbl_user_attraction WHERE " +
-                            "tbl_user_info.user_id = tbl_user_hobby.fk_user_id " +
+                val stringQuery =
+                    "SELECT * " +
+                            "FROM tbl_user_info, tbl_user_hobby, tbl_user_attraction " +
+                            "WHERE tbl_user_info.user_id = tbl_user_hobby.fk_user_id " +
                             "AND tbl_user_info.user_id = tbl_user_attraction.fk_user_id " +
-                            "AND ((tbl_user_hobby.hobbies_1 = '${userDetails.mhobbie1}'OR tbl_user_hobby.hobbies_2 = '${userDetails.mhobbie1}' OR tbl_user_hobby.hobbies_3 = '${userDetails.mhobbie1}')" +
-                            "OR (tbl_user_hobby.hobbies_1 = '${userDetails.mhobbie2}'OR tbl_user_hobby.hobbies_2 = '${userDetails.mhobbie2}' OR tbl_user_hobby.hobbies_3 = '${userDetails.mhobbie2}')" +
-                            "OR (tbl_user_hobby.hobbies_1 = '${userDetails.mhobbie3}'OR tbl_user_hobby.hobbies_2 = '${userDetails.mhobbie3}' OR tbl_user_hobby.hobbies_3 = '${userDetails.mhobbie3}'))"
+                            "AND ((tbl_user_hobby.hobbies_1 = '$hobbie1'OR tbl_user_hobby.hobbies_2 = '$$hobbie1' OR tbl_user_hobby.hobbies_3 = '$hobbie1')" +
+                            "OR (tbl_user_hobby.hobbies_1 = '$hobbie2'OR tbl_user_hobby.hobbies_2 = '$hobbie2' OR tbl_user_hobby.hobbies_3 = '$hobbie2')" +
+                            "OR (tbl_user_hobby.hobbies_1 = '$hobbie3'OR tbl_user_hobby.hobbies_2 = '$hobbie3' OR tbl_user_hobby.hobbies_3 = '$hobbie3'))"
 
-                stmt = con.createStatement()
-                rs = stmt.executeQuery(stringQuery)
-                while (rs.next()){
-                    var match = User(rs.getString("user_id"),rs.getString("first_name"),rs.getString("last_name"),
+                val stmt: Statement = con.createStatement()
+                val rs: ResultSet = stmt.executeQuery(stringQuery)
+
+                while (rs.next()) {
+                    val match = User(
+                        rs.getString("fk_user_id"),
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
                         rs.getString("email"), null, null, null,
-                        null, rs.getString("gender"),rs.getString("sexuality"),
-                        null, rs.getString("BIO"), rs.getString("hobbies_1"),
-                        rs.getString("hobbies_2"), rs.getString("hobbies_3"), rs.getString("DOB"),
-                        rs.getString("type_of_relationship"), null, null)
-                    lowPriomatches = lowPriomatches.plus(match)
+                        rs.getString("age").toInt(),
+                        rs.getString("gender"),
+                        rs.getString("sexuality"),
+                        null,
+                        rs.getString("BIO"),
+                        rs.getString("hobbies_1"),
+                        rs.getString("hobbies_2"),
+                        rs.getString("hobbies_3"),
+                        rs.getString("DOB"),
+                        rs.getString("type_of_relationship"), null, null
+                    )
 
-                    con.close()
-                    stmt.close()
-                    rs.close()
+                    lowPriomatches = lowPriomatches.plus(match)
                 }
+                con.close()
+                stmt.close()
+                rs.close()
             }
         }catch (e: java.lang.Exception){}
-        lowPriomatches = lowPriomatches.filter { !medPriomatches.contains(it) && !highPriomatches.contains(it) }
+        lowPriomatches = lowPriomatches.filter { !medPriomatches.contains(it) || !highPriomatches.contains(it) }
         medPriomatches = medPriomatches.filter { !highPriomatches.contains(it) }
         allmatches = allmatches.plus(lowPriomatches)
         allmatches = allmatches.plus(medPriomatches)
         allmatches = allmatches.plus(highPriomatches)
 
-        return allmatches
+        var likedMatches = matchesStringToList(userDetails.mliked_matches)
+        var dislikedMatches = matchesStringToList(userDetails.mdisliked_matches)
+
+        return allmatches.filter { !likedMatches.contains("${it.mfirstName} ${it.msurname}") ||
+                !dislikedMatches.contains("${it.mfirstName} ${it.msurname}")}
     }
 
     fun updateDatabase(userDetails: User) {
         //update database should update the database with the most up to date user details
         try{
-            val con = connectionclass()
+            var con: Connection? = connectionclass()
             val userID = generateUserID(userDetails, con)
+            con = connectionclass()
             if (con != null){
                 var stringQuery = "BEGIN; " +
-                        "INSERT INTO tbl_user_info(user_id,first_name, last_name, password, email) VALUES ('$userID','${userDetails.mfirstName}','${userDetails.msurname}','${userDetails.mpassword}','${userDetails.memail}');" +
+                        "INSERT INTO tbl_user_info(user_id,first_name, last_name, password, email, BIO, age) VALUES ('$userID','${userDetails.mfirstName}','${userDetails.msurname}','${userDetails.mpassword}','${userDetails.memail}','${userDetails.mbio}',${userDetails.mage});" +
                         "INSERT INTO tbl_user_hobby(fk_user_id,hobbies_1, hobbies_2, hobbies_3) VALUES ('$userID','${userDetails.mhobbie1}', '${userDetails.mhobbie2}', '${userDetails.mhobbie3}'); " +
                         "INSERT INTO tbl_user_attraction(fk_user_id,gender, sexuality) VALUES('$userID','${userDetails.mgender}','${userDetails.msexuality}');" +
                         "END;"
@@ -221,7 +200,7 @@ class Logic: Serializable {
     fun generateUserID(userDetails: User, con: Connection?): String{
         val firstname  = userDetails.mfirstName
         val surname = userDetails.msurname
-        var idNumber: Int? = null
+        var idNumber = 0
         var userId: String = ""
         if (firstname != null && surname != null){
             userId = "${firstname.toCharArray()[0]}${surname.toCharArray()[0]}"
@@ -250,33 +229,56 @@ class Logic: Serializable {
         return "$userId$idNumber"
     }
 
-    fun likeMatch(userDetails: User, likedMatch:String?){
+    fun likeMatch(userDetails: User, likedMatchFname:String?, likedMatchsurname: String?): User{
+        //updates the database with the disliked match and userdetails
+        userDetails.mliked_matches = "${userDetails.mliked_matches},$likedMatchFname $likedMatchsurname"
         val con = connectionclass()
         if (con != null){
             try {
-                val stringQuery = "UPDATE tbl_user_attraction" +
-                        "SET liked_matches = '${userDetails.mliked_matches}'$likedMatch" +
-                        "WHERE fk_user_id = $"
+                val stringQuery = "UPDATE tbl_user_attraction " +
+                        "SET liked_matches = '${userDetails.mliked_matches}'" +
+                        "WHERE fk_user_id = '${userDetails.musername}'"
                 val stmt = con.createStatement()
-                val rs: ResultSet = stmt.executeQuery(stringQuery)
+                stmt.executeQuery(stringQuery)
                 con.close()
                 stmt.close()
             }catch (e: java.lang.Exception){}
         }
+        return userDetails
     }
 
-    fun dislikeMatch(userDetails: User, dislikedMatch:String?){
+    fun dislikeMatch(userDetails: User, dislikedMatchFname:String?, dislikedMatchsurname: String?): User{
+        //updates the database with the disliked match and userdetails
+        userDetails.mdisliked_matches = "${userDetails.mdisliked_matches},$dislikedMatchFname $dislikedMatchsurname"
         val con = connectionclass()
         if (con != null){
             try {
-                val stringQuery = "UPDATE tbl_user_attraction" +
-                        "SET disliked_matches = '${userDetails.mliked_matches}'$dislikedMatch" +
-                        "WHERE"
+                val stringQuery = "UPDATE tbl_user_attraction " +
+                        "SET disliked_matches = '${userDetails.mdisliked_matches}'" +
+                        "WHERE fk_user_id = '${userDetails.musername}'"
                 val stmt = con.createStatement()
-                val rs: ResultSet = stmt.executeQuery(stringQuery)
+                stmt.executeQuery(stringQuery)
                 con.close()
                 stmt.close()
             }catch (e: java.lang.Exception){}
         }
+        return userDetails
+    }
+
+    fun matchesStringToList(matches: String?):List<String>{
+        val tmpMatches = matches
+        if (tmpMatches != null){
+            val matchesList = tmpMatches.split(',')
+            return matchesList
+        }
+        return listOf()
+    }
+
+    fun matchesListToString(matches: List<String>): String?{
+        var stringMatches = ""
+        for (match in matches){
+            stringMatches = "$stringMatches,$match"
+        }
+        return stringMatches
     }
 }

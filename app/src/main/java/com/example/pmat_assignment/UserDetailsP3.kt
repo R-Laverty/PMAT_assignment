@@ -27,7 +27,7 @@ class UserDetailsP3 : AppCompatActivity() {
         val etxtH3 = findViewById<EditText>(R.id.txt_hobbies_3_entry)
 
         btnReturn.setOnClickListener{
-            val intent = Intent(this, UserDetailsP2::class.java)
+            val intent = Intent(this, UserDetailsBIO::class.java)
             intent.putExtra("User", userDetails)
             intent.putExtra("aLogic", mLogic)
             startActivity(intent)
