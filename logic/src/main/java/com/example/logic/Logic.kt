@@ -43,7 +43,7 @@ class Logic: Serializable {
                     userDetails.mfirstName = rs.getString("first_name")
                     userDetails.msurname = rs.getString("last_name")
                     userDetails.memail = rs.getString("email")
-                    userDetails.mDOB = rs.getString("DOB").toString()
+                    //userDetails.mDOB = rs.getString("DOB").toString()
                     userDetails.mage = rs.getString("age").toInt()
                     userDetails.mbio = rs.getString("BIO")
                     userDetails.mhobbie1 = rs.getString("hobbies_1")
