@@ -19,9 +19,10 @@ class UserDetailsP1 : AppCompatActivity() {
         var userDetails = intent.getSerializableExtra("User") as User
         var mLogic = intent.getSerializableExtra("aLogic") as Logic
 
-        val btnReturn = findViewById<Button>(R.id.btn_return)
+        //val btnReturn = findViewById<Button>(R.id.btn_return)
         val btnNext = findViewById<Button>(R.id.btn_next)
 
+        /*
         btnReturn.setOnClickListener{
             //redirects the user to the LoginActivity layout
             val intent = Intent(this, LoginActivity::class.java)
@@ -29,6 +30,7 @@ class UserDetailsP1 : AppCompatActivity() {
             intent.putExtra("aLogic", mLogic)
             startActivity(intent)
         }
+         */
 
         btnNext.setOnClickListener{
             /*grabs the entered userdetails from the layout and puts them into the userdetails
