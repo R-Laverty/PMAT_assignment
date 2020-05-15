@@ -1,10 +1,13 @@
 package com.example.logic
 
+import jdk.nashorn.internal.parser.DateParser.DAY
+import sun.rmi.runtime.Log
 import java.io.Serializable
 import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.ResultSet
 import java.sql.Statement
+import java.util.*
 
 class Logic: Serializable {
 
@@ -72,17 +75,38 @@ class Logic: Serializable {
         return false
     }
 
+    fun calculateAge(dayOfBirth: Int, monthOfBirth: Int, yearOfBirth: Int, currentYear: Int) : Int {
+
+        var calcAge = currentYear - yearOfBirth
+        //if previous month is greater than current month, minus 1 year
+        //kid born may 2020   5 / 2020
+        //current date jan 2020   1 / 2020
+
+
+        //val diff =
+
+        if(monthOfBirth > Calendar.getInstance().get(Calendar.MONTH)+1){
+            calcAge--
+        }
+        else if(monthOfBirth == Calendar.getInstance().get(Calendar.MONTH) + 1){
+            if(dayOfBirth > Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + 1){
+                calcAge--
+            }
+        }
+
+        println("calcAge: $calcAge")
+
+        return calcAge
+    }
+
     fun validateAgeAndDOB(
         dayOfBirth: Int, monthOfBirth: Int, yearOfBirh: Int, age: Int,
         currentYear: Int
     ): Boolean {
         //validate age and DOB checks weather the entered year of birth corroborates with the entered age
         //as well as ensuring the user is 18 or over and returns true if it is
-        val calcAge = currentYear - yearOfBirh
         if (age > 17) {
-            if (calcAge == age || calcAge + 1 == age) {
-                return true
-            }
+            return true
         }
         return false
     }

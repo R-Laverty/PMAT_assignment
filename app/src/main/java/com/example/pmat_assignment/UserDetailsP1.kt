@@ -3,6 +3,7 @@ package com.example.pmat_assignment
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -38,16 +39,25 @@ class UserDetailsP1 : AppCompatActivity() {
             be asked to ensure all field are filled in, otherwise email and age/DOB are validated
             and if they are valid the user is directed to the next registration page*/
             var errortxt = ""
+
+            val firstname = mLogic.formatForDatabase(findViewById<EditText>(R.id.etxt_firstname).text.toString())
+            val surname = mLogic.formatForDatabase(findViewById<EditText>(R.id.etxt_surname).text.toString())
+            val email = findViewById<EditText>(R.id.etxt_email).text.toString()
+            val dayOfBirth = findViewById<EditText>(R.id.etxt_dob_day).text.toString().toInt()
+            val monthOfBirth =
+                findViewById<EditText>(R.id.etxt_dob_month).text.toString().toInt()
+            val yearOfBirth = findViewById<EditText>(R.id.etxt_dob_year).text.toString().toInt()
+            //val age = findViewById<EditText>(R.id.etxt_age).text.toString().toInt()
+            val currentYear = Calendar.getInstance().get(Calendar.YEAR)
+
+            val age = mLogic.calculateAge(dayOfBirth, monthOfBirth, yearOfBirth, currentYear)
+
+            println("user age: $age")
+
+
             try {
-                val firstname = mLogic.formatForDatabase(findViewById<EditText>(R.id.etxt_firstname).text.toString())
-                val surname = mLogic.formatForDatabase(findViewById<EditText>(R.id.etxt_surname).text.toString())
-                val email = findViewById<EditText>(R.id.etxt_email).text.toString()
-                val dayOfBirth = findViewById<EditText>(R.id.etxt_dob_day).text.toString().toInt()
-                val monthOfBirth =
-                    findViewById<EditText>(R.id.etxt_dob_month).text.toString().toInt()
-                val yearOfBirth = findViewById<EditText>(R.id.etxt_dob_year).text.toString().toInt()
-                val age = findViewById<EditText>(R.id.etxt_age).text.toString().toInt()
-                val currentYear = Calendar.getInstance().get(Calendar.YEAR)
+
+
 
                 if (!mLogic.validateEmail(email)) {
                     errortxt = getString(R.string.invalid_email)
@@ -67,6 +77,8 @@ class UserDetailsP1 : AppCompatActivity() {
                     intent.putExtra("aLogic", mLogic)
                     startActivity(intent)
                 }
+
+
             } catch (e: java.lang.NumberFormatException) {
                 errortxt = getString(R.string.prompt_fill_all_fields)
             }
